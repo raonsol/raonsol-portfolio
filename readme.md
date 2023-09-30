@@ -1,78 +1,51 @@
-<p align="center">
-  <a href="https://transitivebullsh.it/nextjs-notion-starter-kit">
-    <img alt="Example article page" src="https://user-images.githubusercontent.com/552829/160132094-12875e09-41ec-450a-80fc-ae8cd488129d.jpg" width="689">
-  </a>
-</p>
+# raonsol-portfolio
 
-# Next.js Notion Starter Kit
-
-> The perfect starter kit for building websites with Next.js and Notion.
-
-[![Build Status](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/actions/workflows/build.yml/badge.svg)](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/actions/workflows/build.yml) [![Prettier Code Formatting](https://img.shields.io/badge/code_style-prettier-brightgreen.svg)](https://prettier.io)
+> `nextjs-notion-starter-kit`을 기반으로 제작된 포트폴리오 웹사이트
 
 ## Intro
 
-This repo is what I use to power my personal blog and portfolio site [transitivebullsh.it](https://transitivebullsh.it).
-
-It uses Notion as a CMS, [react-notion-x](https://github.com/NotionX/react-notion-x), [Next.js](https://nextjs.org/), and [Vercel](https://vercel.com).
+본 웹사이트는 Notion을 CMS로 사용하고, [react-notion-x](https://github.com/NotionX/react-notion-x), [Next.js](https://nextjs.org/)를 사용하여 정적 웹사이트로 변환합니다.
 
 ## Features
 
-- Setup only takes a few minutes ([single config file](./site.config.ts)) 💪
-- Robust support for Notion content via [react-notion-x](https://github.com/NotionX/react-notion-x)
-- Built using Next.js, TS, and React
-- Excellent page speeds
-- Smooth image previews
-- Automatic social images
-- Automatic pretty URLs
-- Automatic table of contents
-- Full support for dark mode
-- Quick search via CMD+K / CMD+P
-- Responsive for different devices
-- Optimized for Next.js and Vercel
-
-## Demos
-
-- [Default demo](https://nextjs-notion-starter-kit.transitivebullsh.it) - Deployed from the `main` branch
-- [My site](https://transitivebullsh.it) - Deployed from the `transitive-bullshit` branch
+- 번거로운 세팅 불필요 ([단일 config 파일](./site.config.ts)) 💪
+- [react-notion-x](https://github.com/NotionX/react-notion-x)를 사용한 Notion 연동 지원
+- Next.js, TS, React 사용
+- 페이지 로딩 속도 최적화
+- 부드러운 이미지 프리뷰
+- 공유용 OG 이미지 생성 자동화
+- 직관적인 URL 생성 자동화
+- ToC(목차) 자동 생성
+- 다크모드 지원
+- CMD+K / CMD+P 단축키로 검색 지원
+- 반응형 웹 지원
+- Next.js와 Vercel 지원
 
 ## Setup
 
-**All config is defined in [site.config.ts](./site.config.ts).**
+**모든 환경설정은 [site.config.ts](./site.config.ts)에 정의되어 있습니다.**
 
-This project requires a recent version of Node.js (we recommend >= 16).
+Node.js 최신버전을 권장합니다. (16버전 이상).
 
-1. Fork / clone this repo
-2. Change a few values in [site.config.ts](./site.config.ts)
+1. Fork / clone
+2. [site.config.ts](./site.config.ts)에서 환경설정 변경
 3. `npm install`
-4. `npm run dev` to test locally
-5. `npm run deploy` to deploy to vercel 💪
+4. `npm run dev` (개발서버로 테스트)
+5. `npm run deploy` (Vercel로 배포, 선택사항)
 
-I tried to make configuration as easy as possible — All you really need to do to get started is edit `rootNotionPageId`.
+변경해주어야 할 중요한 환경설정은 `rootNotionPageId`입니다.
 
-We recommend duplicating the [default page](https://notion.so/7875426197cf461698809def95960ebf) as a starting point, but you can use any public notion page you want.
+웹사이트로 변환할 Notion root 페이지가 **전체 공개** 상태인지 확인하고 링크를 복사합니다. 그 후 Notion ID(URL에서 마지막의 `7875426197cf461698809def95960ebf`형태로 생긴 값)을 추출합니다.
 
-Make sure your root Notion page is **public** and then copy the link to your clipboard. Extract the last part of the URL that looks like `7875426197cf461698809def95960ebf`, which is your page's Notion ID.
-
-In order to find your Notion workspace ID (optional), just load any of your site's pages into your browser and open up the developer console. There will be a global variable that you can access called `block` which is the Notion data for the current page. If you enter `block.space_id`, it will print out your page's workspace ID.
-
-I recommend setting up a collection on your home page that contains all of your articles / projects / content. There are no structural constraints on your Notion workspace, however, so feel free to add content as you normally would in Notion.
+Notion workspace ID(선택사항)을 찾기 위해서는 개발자 도구를 사용해야 합니다. 원하는 Notion 페이지에서 개발자 도구를 열고 `block.space_id`를 입력하면 Notion workspace ID를 확인할 수 있습니다.
 
 ## URL Paths
 
-The app defaults to slightly different URL paths in dev vs prod (though pasting any dev pathname into prod will work and vice-versa).
+개발서버에서 구동할 때와 운영서버에서 구동할 때의 URL이 다릅니다. 개발서버에서는 `/nextjs-notion-blog-d1b5dcf8b9ff425b8aef5ce6f0730202`와 같은 형태로 URL이 생성되지만, 운영서버에서는 `/nextjs-notion-blog`와 같은 형태로 URL이 생성됩니다.
 
-In development, it will use `/nextjs-notion-blog-d1b5dcf8b9ff425b8aef5ce6f0730202` which is a slugified version of the page's title suffixed with its Notion ID. I've found that it's really useful to always have the Notion Page ID front and center during local development.
+기본적인 slug 생성 규칙은 변경이 가능합니다. DB에 `Slug` 프로퍼티를 추가하면 해당 프로퍼티를 URL로 사용합니다.
 
-In production, it will use `/nextjs-notion-blog` which is a bit nicer as it gets rid of the extra ID clutter.
-
-The mapping of Notion ID to slugified page titles is done automatically as part of the build process. Just keep in mind that if you plan on changing page titles over time, you probably want to make sure old links will still work, and we don't currently provide a solution for detecting old links aside from Next.js's built-in [support for redirects](https://nextjs.org/docs/api-reference/next.config.js/redirects).
-
-See [mapPageUrl](./lib/map-page-url.ts) and [getCanonicalPageId](https://github.com/NotionX/react-notion-x/blob/master/packages/notion-utils/src/get-canonical-page-id.ts) for more details.
-
-You can override the default slug generation on a per-page basis by adding a `Slug` text property to your database. Any page which has a `Slug` property will use that as its slug.
-
-NOTE: if you have multiple pages in your workspace with the same slugified name, the app will throw an error letting you know that there are duplicate URL pathnames.
+> 중요: 만약 워크스페이스에 동일한 slug를 가진 페이지가 여러개 있다면, 에러가 발생합니다.
 
 ## Preview Images
 
@@ -80,30 +53,15 @@ NOTE: if you have multiple pages in your workspace with the same slugified name,
   <img alt="Example preview image" src="https://user-images.githubusercontent.com/552829/160142320-35343317-aa9e-4710-bcf7-67e5cdec586d.gif" width="458">
 </p>
 
-We use [next/image](https://nextjs.org/docs/api-reference/next/image) to serve images efficiently, with preview images optionally generated via [lqip-modern](https://github.com/transitive-bullshit/lqip-modern). This gives us extremely optimized image support for sexy smooth images.
+[next/image](https://nextjs.org/docs/api-reference/next/image)를 사용해서 Lazy loading을 지원합니다. 이 패키지는 [lqip-modern](https://github.com/transitive-bullshit/lqip-modern)을 사용해서 LQIP 프리뷰 이미지를 생성하므로써 부드러운 로딩 화면을 보여주게 됩니다.
 
-Preview images are **enabled by default**, but they can be slow to generate, so if you want to disable them, set `isPreviewImageSupportEnabled` to `false` in `site.config.ts`.
-
-### Redis
-
-If you want to cache generated preview images to speed up subsequent builds, you'll need to first set up an external [Redis](https://redis.io) data store. To enable redis caching, set `isRedisEnabled` to `true` in `site.config.ts` and then set `REDIS_HOST` and `REDIS_PASSWORD` environment variables to point to your redis instance.
-
-You can do this locally by adding a `.env` file:
-
-```bash
-REDIS_HOST='TODO'
-REDIS_PASSWORD='TODO'
-```
-
-If you're not sure which Redis provider to use, we recommend [Redis Labs](https://redis.com), which provides a free plan.
-
-Note that preview images and redis caching are both optional features. If you’d rather not deal with them, just disable them in your site config.
+프리뷰 이미지는 **기본적으로 활성화**되어 있습지만, 생성하는 데 시간이 오래 걸릴 수 있습니다. 만약 끄고 싶다면 `site.config.ts`에서 `isPreviewImageSupportEnabled`를 `false`로 설정하면 됩니다.
 
 ## Styles
 
-All CSS styles that customize Notion content are located in [styles/notion.css](./styles/notion.css). They mainly target global CSS classes exported by react-notion-x [styles.css](https://github.com/NotionX/react-notion-x/blob/master/packages/react-notion-x/src/styles.css).
+모든 CSS 스타일은 [styles/global.css](./styles/global.css)에 정의되어 있습니다. 이 CSS 파일로 Notion에서 가져온 요소들의 스타일을 지정하게 됩니다.
 
-Every notion block gets its own unique classname, so you can target individual blocks like this:
+모든 Notion 블록은 각각 고유한 클래스명을 가지고 있습니다. 따라서 다음과 같이 각 블록을 선택할 수 있습니다.
 
 ```css
 .notion-block-260baa77f1e1428b97fb14ac99c7c385 {
@@ -119,7 +77,7 @@ Every notion block gets its own unique classname, so you can target individual b
   <img alt="Dark Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc0839d6c-7141-48df-8afd-69b27fed84aa%2Ftransitivebullsh.it__(1)-opt.jpg?table=block&id=23b11fe5-d6df-422d-9674-39cf7f547523&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%">
 </p>
 
-Dark mode is fully supported and can be toggled via the sun / moon icon in the footer.
+다크모드 전환은 footer의 아이콘을 클릭하면 됩니다.
 
 ## Automatic Social Images
 
@@ -127,11 +85,9 @@ Dark mode is fully supported and can be toggled via the sun / moon icon in the f
   <img alt="Example social image" src="https://user-images.githubusercontent.com/552829/162001133-34d4cf24-123a-4569-a540-f683b22830d1.jpeg" width="600">
 </p>
 
-All Open Graph and social meta tags are generated from your Notion content, which makes social sharing look professional by default.
+SNS 공유용 OG 이미지는 Notion 페이지의 내용을 기반으로 자동으로 생성됩니다.
 
-Social images are generated automatically using [Vercel OG Image Generation](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation). You can tweak the default React template for social images by editing [api/social-images.tsx](./pages/api/social-image.tsx).
-
-You can view an example social image live in production [here](https://transitivebullsh.it/api/social-image?id=dfc7f709-ae3e-42c6-9292-f6543d5586f0).
+ [Vercel OG Image Generation](https://vercel.com/docs/concepts/functions/edge-functions/og-image-generation)을 사용하여 자동으로 생성되며, [api/social-images.tsx](./pages/api/social-image.tsx)을 수정해서 스타일을 변경할 수 있습니다.
 
 ## Automatic Table of Contents
 
@@ -139,11 +95,11 @@ You can view an example social image live in production [here](https://transitiv
   <img alt="Smooth ToC Scrollspy" src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fcb2df62d-9028-440b-964b-117711450921%2Ftoc2.gif?table=block&id=d7e9951b-289c-4ff2-8b82-b0a61fe260b1&cache=v2" width="240">
 </p>
 
-By default, every article page will have a table of contents displayed as an `aside` on desktop. It uses **scrollspy** logic to automatically update the current section as the user scrolls through your document, and makes it really easy to jump between different sections.
+기본적으로 모든 페이지의 목차는 `aside`에 표시됩니다. 스크롤에 따라 자동으로 현재 위치를 표시해주며, 클릭할 시 해당 위치로 이동합니다.
 
-If a page has less than `minTableOfContentsItems` (default 3), the table of contents will be hidden. It is also hidden on the index page and if the browser window is too small.
+만약 페이지에 목차 항목이 `minTableOfContentsItems` (기본 3) 값 미만이라면, 목차는 표시되지 않습니다. 또한 인덱스 페이지와 브라우저 창이 너무 작을 경우에도 표시되지 않습니다.
 
-This table of contents uses the same logic that Notion uses for its built-in Table of Contents block (see [getPageTableOfContents](https://github.com/NotionX/react-notion-x/blob/master/packages/notion-utils/src/get-page-table-of-contents.ts) for the underlying logic).
+이 목차는 Notion에서 사용하는 목차 블록과 같은 로직을 사용합니다. (자세한 내용은 [getPageTableOfContents](https://github.com/NotionX/react-notion-x/blob/master/packages/notion-utils/src/get-page-table-of-contents.ts) 참고 바랍니다.
 
 ## Responsive
 
@@ -151,36 +107,4 @@ This table of contents uses the same logic that Notion uses for its built-in Tab
   <img alt="Mobile article page" src="https://user-images.githubusercontent.com/552829/160132983-c2dd5830-80b3-4a0e-a8f1-abab5dbeed11.jpg" width="300">
 </p>
 
-All pages are designed to be responsive across common device sizes.
-
-## Analytics
-
-Analytics are an optional feature that are easy to enable if you want.
-
-### Fathom Analytics
-
-[Fathom](https://usefathom.com/ref/42TFOZ) provides a lightweight alternative to Google Analytics.
-
-To enable, just add a `NEXT_PUBLIC_FATHOM_ID` environment variable, which will only be used in production.
-
-### PostHog Analytics
-
-[PostHog](https://posthog.com/) provides a lightweight, **open source** alternative to Google Analytics.
-
-To enable, just add a `NEXT_PUBLIC_POSTHOG_ID` environment variable, which will only be used in production.
-
-## Environment Variables
-
-If you're using Redis, analytics, or any other feature which requires environment variables, then you'll need to [add them to your Vercel project](https://vercel.com/docs/concepts/projects/environment-variables).
-
-If you want to test your redis builds with GitHub Actions, then you'll need to edit the [default build action](./.github/workflows/build.yml) to add `REDIS_HOST` and `REDIS_PASSWORD`. Here is an [example from my personal branch](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/blob/transitive-bullshit/.github/workflows/build.yml#L17-L21). You'll also need to add these environment variables to your GitHub repo as [repository secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets).
-
-## Contributing
-
-See the [contribution guide](contributing.md) and join our amazing list of [contributors](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/graphs/contributors)!
-
-## License
-
-MIT © [Travis Fischer](https://transitivebullsh.it)
-
-Support my open source work by <a href="https://twitter.com/transitive_bs">following me on twitter <img src="https://storage.googleapis.com/saasify-assets/twitter-logo.svg" alt="twitter" height="24px" align="center"></a>
+모든 페이지는 반응형으로 제작되었습니다. 모바일 환경에서도 최적화된 UI를 제공합니다.
